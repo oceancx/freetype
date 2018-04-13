@@ -234,10 +234,13 @@ message(STATUS
 
 file(READ "${PROJECT_SOURCE_DIR}/include/freetype/config/ftoption.h"
   FTOPTION_H)
-if (ZLIB_FOUND)
-  string(REGEX REPLACE
-    "/\\* +(#define +FT_CONFIG_OPTION_SYSTEM_ZLIB) +\\*/" "\\1"
-    FTOPTION_H "${FTOPTION_H}")
+
+if (UNIX)
+	if (ZLIB_FOUND)
+	  string(REGEX REPLACE
+		"/\\* +(#define +FT_CONFIG_OPTION_SYSTEM_ZLIB) +\\*/" "\\1"
+		FTOPTION_H "${FTOPTION_H}")
+	endif ()
 endif ()
 if (BZIP2_FOUND)
   string(REGEX REPLACE
